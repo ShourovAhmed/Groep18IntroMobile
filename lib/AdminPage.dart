@@ -1,27 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-import 'login.dart';
-import 'AdminPage.dart';
+import 'main.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MaterialApp(home: FirstRoute()));
-}
-
-class FirstRoute extends StatelessWidget {
-  const FirstRoute({Key? key}) : super(key: key);
+class AdminHome extends StatelessWidget {
+  const AdminHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.orange,
-          title: const Text('Home'),
+          title: const Text('Home Admin'),
         ),
         body: Center(
           child: Row(
@@ -33,7 +21,7 @@ class FirstRoute extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                     textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
-                  child: Text('Admin'),
+                  child: Text('Home'),
                   onPressed: () {
                     // Navigate to second route when tapped.
                     Navigator.push(
@@ -51,7 +39,7 @@ class FirstRoute extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                     textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
-                  child: Text('Student'),
+                  child: Text('Still Home'),
                   onPressed: () {
                     // Navigate to second route when tapped.
                     Navigator.push(
@@ -63,22 +51,4 @@ class FirstRoute extends StatelessWidget {
               ]),
         ));
   }
-}
-
-class SecondRoute extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    body: StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if(snapshot.hasData) {
-          return AdminHome();
-        }
-        else {
-          return LoginWidget();
-        }
-      },
-    ),
-  );
-
 }

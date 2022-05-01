@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'passwordchange.dart';
 
 class AdminHome extends StatelessWidget {
   const AdminHome({Key? key}) : super(key: key);
@@ -48,6 +49,7 @@ class AdminHome extends StatelessWidget {
                   );
                 },
               ),
+              ElevatedButton(onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordWidget()),);}, child: Text('wachtwoord wijzigen(voorlopig)'))              //          voorlopige button            //
             ]),
       ),
       bottomNavigationBar: BottomNavigationBar(

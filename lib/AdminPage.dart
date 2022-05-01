@@ -10,7 +10,7 @@ class AdminHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orange,
-        title: const Text('Home Admin'),
+        title: const Text('Admin - Examen'),
       ),
       body: Center(
         child: Column(
@@ -49,25 +49,7 @@ class AdminHome extends StatelessWidget {
                   );
                 },
               ),
-              ElevatedButton(onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordWidget()),);}, child: Text('wachtwoord wijzigen(voorlopig)'))              //          voorlopige button            //
             ]),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.orange,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_box_rounded),
-            label: 'Examen',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment),
-            label: 'Studenten',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.lock),
-            label: 'Wachtwoord wijzigen',
-          ),
-        ],
       ),
     );
   }

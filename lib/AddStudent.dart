@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
-import 'AdminPage.dart';
+import 'FireBase.dart';
+import 'studentclass.dart';
 
 class StudentAdd extends StatelessWidget {
-  StudentAdd({Key? key}) : super(key: key);
 
+  final fb = new firebase();
+  final students = TextEditingController();
+  List<Student> studenten = [];
+  final snumber = "";
+  final name = "";
+  int counter = 0;
+
+  @override
+  void dispose() {
+    students.dispose();
+  }
+
+
+  StudentAdd({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,76 +31,84 @@ class StudentAdd extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 100,
-                      child: TextField(
-                        decoration: InputDecoration(
+                  SizedBox(
+                    width: 600,
+                    child: TextField(
+                        controller: students,
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'voornaam',
-                          hintText: 'Geef de toe te voegen voornaam in',
+                          labelText: 'Studenten',
+                          hintText: 's-nummer;vooraam naam',
                         ),
-                      ),
+                        minLines: 1,
+                        maxLines: 5,
+                        style: const TextStyle(
+                          fontSize: 25.0,
+                          height: 1.0,
+                          color: Colors.black,
+                        )
                     ),
                   ),
-                  SizedBox(width: 25),
-                  Expanded(
-                    child: SizedBox(
-                      height: 100,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'naam',
-                          hintText: 'Geef de toe te voegen naam in',
-                        ),
+                  const SizedBox(width: 20,),
+                  ElevatedButton(onPressed: () {Splitting(students.text, context);},
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.orange,
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                        textStyle: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                  ),
-                  SizedBox(width: 25),
-                  Expanded(
-                    child: SizedBox(
-                      height: 100,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'studenten nummer',
-                          hintText: 's000000',
-                        ),
-                      ),
-                    ),
+                      child: const Text("Voeg toe")
                   ),
                 ],
               ),
               Row(
                 children: [
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.orange,
-                    ),
-                    onPressed: () {
-                      AdminHome();
-                    },
-                    icon: Icon(Icons.add_circle_outline),
-                    label: Text('Add field'),
-                  ),
-                ],
-              ),
-              SizedBox(height: 50,),
-              Row(
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(200,80),
-                      primary: Colors.orange,
-                    ),
-                    child: Text('Verstuur', style: TextStyle(fontSize: 40),),
-                    onPressed: () {AdminHome();},
-                  ),
                 ],
               ),
             ],
           ),
         )
+    );
+  }
+  Splitting(String AllStudents, ctxt) {
+    counter = 0;
+    final studentinfo = AllStudents;
+    final split = studentinfo.split(';');
+    final Map<int, dynamic> values = {
+      for (int i = 0; i < split.length; i++)
+        i: split[i]
+    };
+    for(int i = 0; i < values.length/2; i++){
+      counter++;
+      studenten.add(Student(values[i], values[i+1]));   //nummer, naam
+      fb.AddStudents(studenten[i].snumber, studenten[i].name);
+    }
+    _showMyDialog(ctxt);
+  }
+
+  Future<void> _showMyDialog(context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Firebase alert'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('${counter} student(en) toegevoegd'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ExamList.dart';
 import 'main.dart';
 import 'passwordchange.dart';
 
@@ -27,7 +28,7 @@ class AdminHome extends StatelessWidget {
                   // Navigate to second route when tapped.
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SecondRoute()),
+                    MaterialPageRoute(builder: (context) => ExamList()),
                   );
                 },
               ),

@@ -71,7 +71,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                       border: Border.all(
                           color: Colors.orange
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(20))
+                      borderRadius: const BorderRadius.all(Radius.circular(20))
                   ),
                   child: CountdownTimer(
                     textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -85,7 +85,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Vraag 1'),
+                child: const Text('Vraag 1'),
                 onPressed: () {
                   // Navigate to second route when tapped.
                   Navigator.push(
@@ -103,7 +103,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Vraag 2'),
+                child: const Text('Vraag 2'),
                 onPressed: () {
                   // Navigate to second route when tapped.
                   Navigator.push(
@@ -121,7 +121,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Vraag 3'),
+                child: const Text('Vraag 3'),
                 onPressed: () {
                   // Navigate to second route when tapped.
                   Navigator.push(
@@ -139,7 +139,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Beëindig examen'),
+                child: const Text('Beëindig examen'),
                 onPressed: () {_showMyDialog(context);},
               ),
             ]),

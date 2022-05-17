@@ -30,30 +30,30 @@ class LoginWidget extends StatelessWidget {
                     width: 800.0,
                     child: TextField(
                         controller: emailController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'e-mail',
                           hintText: 'Geef uw e-mail in',
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 40.0,
                             height: 2.0,
                             color: Colors.black
                         )
                     )
                 ),
-                SizedBox(height: 50,),
+                const SizedBox(height: 50,),
                 SizedBox(
                     width: 800.0,
                     child: TextField(
                         obscureText: true,
                         controller: passwordController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Wachtwoord',
                           hintText: 'Geef uw wachtwoord in',
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 35.0,
                           height: 2.0,
                           color: Colors.black,
@@ -61,14 +61,14 @@ class LoginWidget extends StatelessWidget {
                         )
                     )
                 ),
-                SizedBox(height: 50,),
+                const SizedBox(height: 50,),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(200,80),
                       primary: Colors.orange
                   ),
-                  icon: Icon(Icons.lock_open, size: 32,),
-                  label: Text("Log in", style: TextStyle(fontSize: (40)),),
+                  icon: const Icon(Icons.lock_open, size: 32,),
+                  label: const Text("Log in", style: TextStyle(fontSize: (40)),),
                   onPressed: signIn,
                 )
               ],

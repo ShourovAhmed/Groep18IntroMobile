@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
-import 'GradeExams.dart';
 import 'Firebase.dart';
+import 'Adminstudentselect.dart';
 
 class AdminHome extends StatelessWidget {
   const AdminHome({Key? key}) : super(key: key);
@@ -41,12 +41,12 @@ class AdminHome extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Verbeter examens'),
+                child: const Text('Verbeter examens'),
                 onPressed: () {
                   // Navigate to second route when tapped.
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => GradeExam()),
+                    MaterialPageRoute(builder: (context) => AdminSelectStudent()),
                   );
                 },
               ),

@@ -1,20 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Firebase.dart';
 import 'studentclass.dart';
+import 'studentlist.dart';
 
 class StudentAdd extends StatelessWidget {
-
   final fb = new firebase();
   final students = TextEditingController();
   List<Student> studenten = [];
   final snumber = "";
   final name = "";
   int counter = 0;
-
+  /*
   @override
   void dispose() {
     students.dispose();
   }
+ */
 
 
   StudentAdd({Key? key}) : super(key: key);
@@ -66,7 +68,7 @@ class StudentAdd extends StatelessWidget {
     );
   }
   Splitting(String AllStudents, ctxt) {
-    counter = 1;
+    counter = 0;
     final studentinfo = AllStudents;
     final split = studentinfo.split(';');
     final Map<int, dynamic> values = {
@@ -76,8 +78,10 @@ class StudentAdd extends StatelessWidget {
     for(int i = 0; i < values.length/2; i++){
       counter++;
       studenten.add(Student(values[i*2], values[i*2+1]));   //nummer, naam
-      fb.AddStudents(studenten[i].snumber, studenten[i].name, false);
+      ListStudents().SetStudents(studenten);
+      //fb.AddStudents(studenten[i].snumber, studenten[i].name, false);
     }
+
 
     _showMyDialog(ctxt);
   }
@@ -91,7 +95,7 @@ class StudentAdd extends StatelessWidget {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('${counter/2} student(en) toegevoegd'),
+                Text('${counter} student(en) toegevoegd'),
               ],
             ),
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'studentclass.dart';
 import 'studentlist.dart';
-import 'StudentenQuestion.dart';
+import 'AdminExamen.dart';
 
 /*
 class SelectStudent extends StatefulWidget {
@@ -12,8 +12,8 @@ class SelectStudent extends StatefulWidget {
 }
  */
 
-class SelectStudent extends StatelessWidget {
-  SelectStudent({Key? key}) : super(key: key);
+class AdminSelectStudent extends StatelessWidget {
+  AdminSelectStudent({Key? key}) : super(key: key);
 
   List<Student> slijst = [];
   List<ElevatedButton> blijst = [];
@@ -42,7 +42,7 @@ class SelectStudent extends StatelessWidget {
           title: const Text('Admin - verbeter examen'),
         ),
         body: Wrap(
-          children: buildButtons(context)
+            children: buildButtons(context)
           /*
           child: ElevatedButton(
             onPressed: () {
@@ -76,7 +76,7 @@ class SelectStudent extends StatelessWidget {
       blijst.add(ElevatedButton(onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const QuestionWidget()),
+          MaterialPageRoute(builder: (context) => ExamenAdminCheck(slijst[i].name, slijst[i].snumber)),
         );
       }, child: Text(slijst[i].name + " (" + slijst[i].snumber + ")")));
     }

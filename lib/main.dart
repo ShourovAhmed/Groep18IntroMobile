@@ -68,7 +68,6 @@ class FirstRoute extends StatelessWidget {
 
 class SecondRoute extends StatelessWidget{
   const SecondRoute({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) => Scaffold(
     body: StreamBuilder<User?>(
@@ -83,5 +82,4 @@ class SecondRoute extends StatelessWidget{
       },
     ),
   );
-
 }

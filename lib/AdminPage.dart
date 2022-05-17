@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
-import 'passwordchange.dart';
+import 'GradeExams.dart';
+import 'Firebase.dart';
 
 class AdminHome extends StatelessWidget {
   const AdminHome({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class AdminHome extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 72, vertical: 20),
                   textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Examenvragen'),
+                child: const Text('Examenvragen'),
                 onPressed: () {
                   // Navigate to second route when tapped.
                   Navigator.push(
@@ -31,7 +32,7 @@ class AdminHome extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               ElevatedButton(
@@ -45,12 +46,15 @@ class AdminHome extends StatelessWidget {
                   // Navigate to second route when tapped.
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SecondRoute()),
+                    MaterialPageRoute(builder: (context) => GradeExam()),
                   );
                 },
               ),
             ]),
       ),
     );
+  }
+  void test() {
+    firebase().GetStudents();
   }
 }

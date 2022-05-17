@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'FireBase.dart';
+import 'Firebase.dart';
 import 'studentclass.dart';
 
 class StudentAdd extends StatelessWidget {
@@ -56,12 +56,8 @@ class StudentAdd extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                         textStyle: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                       ),
-                      child: const Text("Voeg toe")
+                      child: Text("Voeg toe")
                   ),
-                ],
-              ),
-              Row(
-                children: [
                 ],
               ),
             ],
@@ -70,7 +66,7 @@ class StudentAdd extends StatelessWidget {
     );
   }
   Splitting(String AllStudents, ctxt) {
-    counter = 0;
+    counter = 1;
     final studentinfo = AllStudents;
     final split = studentinfo.split(';');
     final Map<int, dynamic> values = {
@@ -79,12 +75,12 @@ class StudentAdd extends StatelessWidget {
     };
     for(int i = 0; i < values.length/2; i++){
       counter++;
-      studenten.add(Student(values[i], values[i+1]));   //nummer, naam
-      fb.AddStudents(studenten[i].snumber, studenten[i].name);
+      studenten.add(Student(values[i*2], values[i*2+1]));   //nummer, naam
+      fb.AddStudents(studenten[i].snumber, studenten[i].name, false);
     }
+
     _showMyDialog(ctxt);
   }
-
   Future<void> _showMyDialog(context) async {
     return showDialog<void>(
       context: context,
@@ -95,7 +91,7 @@ class StudentAdd extends StatelessWidget {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('${counter} student(en) toegevoegd'),
+                Text('${counter/2} student(en) toegevoegd'),
               ],
             ),
           ),

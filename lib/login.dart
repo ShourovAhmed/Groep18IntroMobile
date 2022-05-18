@@ -64,7 +64,7 @@ class LoginWidget extends StatelessWidget {
                 const SizedBox(height: 50,),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                      minimumSize: Size(200,80),
+                      minimumSize: const Size(200,80),
                       primary: Colors.orange
                   ),
                   icon: const Icon(Icons.lock_open, size: 32,),

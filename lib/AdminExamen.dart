@@ -18,10 +18,12 @@ class ExamenAdminCheck extends StatelessWidget {
         ),
         body: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 children: [
-                  const Text("Vaardigheidstoets Intro Mobile"),   // naam firebase
+                  const Text("Vaardigheidstoets Intro Mobile", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),   // naam firebase
+                  const SizedBox(width: 200,),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.lightBlueAccent,
@@ -40,11 +42,30 @@ class ExamenAdminCheck extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Text(name + " - " + number),
+                  Text(name + " - " + number, style: const TextStyle(fontSize: 20),),
+                ],
+              ),
+              const SizedBox(height: 20,),
+              Row(
+                children: [
+                  SizedBox(
+                      width: 40.0,
+                      height: 32,
+                      child: TextField(
+                          controller: answer,
+                          style: const TextStyle(
+                            fontSize: 25.0,
+                            height: 2.0,
+                            color: Colors.black,
+                          )
+                      )
+                  ),
+                  const Text(" /20", style: TextStyle(fontSize: 25),)
                 ],
               ),
               Row(
                 children: [
+                  const SizedBox(height: 100,),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.orange,
@@ -59,6 +80,7 @@ class ExamenAdminCheck extends StatelessWidget {
                       );
                     },
                   ),
+                  const SizedBox(width: 100,),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.lightBlueAccent,

@@ -76,7 +76,7 @@ class SelectStudent extends StatelessWidget {
       blijst.add(ElevatedButton(onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const QuestionWidget()),
+          MaterialPageRoute(builder: (context) => QuestionWidget(slijst[i].snumber)),
         );
       }, child: Text(slijst[i].name + " (" + slijst[i].snumber + ")")));
     }

@@ -6,16 +6,21 @@ import 'Questions/OpenQuestion.dart';
 import 'Questions/OptionQuestion.dart';
 import 'Questions/CodeQuestion.dart';
 import 'ExamEnd.dart';
+import 'studentlist.dart';
 
 class QuestionWidget extends StatefulWidget {
-  const QuestionWidget({Key? key}) : super(key: key);
+  const QuestionWidget(this.number, {Key? key}) : super(key: key);
+
+  final String number;
 
   @override
-  _QuestionsWidget createState() => _QuestionsWidget();
+  _QuestionsWidget createState() => _QuestionsWidget(number);
 }
 
 class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver{
+  _QuestionsWidget(this.number);
 
+  final String number;
   AppLifecycleState? notification;
 
   int EndTime = DateTime.now().millisecondsSinceEpoch + 1000 * 7200;
@@ -164,9 +169,10 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
             TextButton(
               child: const Text('Ja'),
               onPressed: () {
+                ListStudents().UpdateExamenStudents(number);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ExEnd()),
+                  MaterialPageRoute(builder: (context) => const ExEnd()),
                 );
               },
             ),

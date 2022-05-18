@@ -73,12 +73,19 @@ class AdminSelectStudent extends StatelessWidget {
   List<Widget> buildButtons(BuildContext context) {
     slijst = ListStudents().GetStudents();
     for(int i = 0; i < slijst.length; i++) {
-      blijst.add(ElevatedButton(onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ExamenAdminCheck(slijst[i].name, slijst[i].snumber)),
-        );
-      }, child: Text(slijst[i].name + " (" + slijst[i].snumber + ")")));
+      if(slijst[i].ExamDone == true) {
+
+        blijst.add(ElevatedButton(onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ExamenAdminCheck(slijst[i].name, slijst[i].snumber)),
+          );
+        }, child: Text(slijst[i].name + " (" + slijst[i].snumber + ")")));
+
+      }
+      else{
+        blijst.add(const ElevatedButton(onPressed: null, child: Text("Er zijn geen studenten die een examen hebben gemaakt")));
+      }
     }
     return blijst;
   }

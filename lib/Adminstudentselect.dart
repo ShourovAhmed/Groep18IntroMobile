@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'studentclass.dart';
 import 'studentlist.dart';
-import 'StudentenQuestion.dart';
+import 'AdminExamen.dart';
 
 /*
 class SelectStudent extends StatefulWidget {
@@ -12,8 +12,8 @@ class SelectStudent extends StatefulWidget {
 }
  */
 
-class SelectStudent extends StatelessWidget {
-  SelectStudent({Key? key}) : super(key: key);
+class AdminSelectStudent extends StatelessWidget {
+  AdminSelectStudent({Key? key}) : super(key: key);
 
   List<Student> slijst = [];
   List<ElevatedButton> blijst = [];
@@ -42,7 +42,7 @@ class SelectStudent extends StatelessWidget {
           title: const Text('Admin - verbeter examen'),
         ),
         body: Wrap(
-          children: buildButtons(context)
+            children: buildButtons(context)
           /*
           child: ElevatedButton(
             onPressed: () {
@@ -73,12 +73,19 @@ class SelectStudent extends StatelessWidget {
   List<Widget> buildButtons(BuildContext context) {
     slijst = ListStudents().GetStudents();
     for(int i = 0; i < slijst.length; i++) {
-      blijst.add(ElevatedButton(onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => QuestionWidget(slijst[i].snumber)),
-        );
-      }, child: Text(slijst[i].name + " (" + slijst[i].snumber + ")")));
+      if(slijst[i].ExamDone == true) {
+
+        blijst.add(ElevatedButton(onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ExamenAdminCheck(slijst[i].name, slijst[i].snumber)),
+          );
+        }, child: Text(slijst[i].name + " (" + slijst[i].snumber + ")")));
+
+      }
+      else{
+        blijst.add(const ElevatedButton(onPressed: null, child: Text("Er zijn geen studenten die een examen hebben gemaakt")));
+      }
     }
     return blijst;
   }

@@ -6,16 +6,21 @@ import 'Questions/OpenQuestion.dart';
 import 'Questions/OptionQuestion.dart';
 import 'Questions/CodeQuestion.dart';
 import 'ExamEnd.dart';
+import 'studentlist.dart';
 
 class QuestionWidget extends StatefulWidget {
-  const QuestionWidget({Key? key}) : super(key: key);
+  const QuestionWidget(this.number, {Key? key}) : super(key: key);
+
+  final String number;
 
   @override
-  _QuestionsWidget createState() => _QuestionsWidget();
+  _QuestionsWidget createState() => _QuestionsWidget(number);
 }
 
 class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver{
+  _QuestionsWidget(this.number);
 
+  final String number;
   AppLifecycleState? notification;
 
   int EndTime = DateTime.now().millisecondsSinceEpoch + 1000 * 7200;
@@ -71,7 +76,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                       border: Border.all(
                           color: Colors.orange
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(20))
+                      borderRadius: const BorderRadius.all(Radius.circular(20))
                   ),
                   child: CountdownTimer(
                     textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -85,7 +90,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Vraag 1'),
+                child: const Text('Vraag 1'),
                 onPressed: () {
                   // Navigate to second route when tapped.
                   Navigator.push(
@@ -103,7 +108,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Vraag 2'),
+                child: const Text('Vraag 2'),
                 onPressed: () {
                   // Navigate to second route when tapped.
                   Navigator.push(
@@ -121,7 +126,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Vraag 3'),
+                child: const Text('Vraag 3'),
                 onPressed: () {
                   // Navigate to second route when tapped.
                   Navigator.push(
@@ -139,7 +144,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Beëindig examen'),
+                child: const Text('Beëindig examen'),
                 onPressed: () {_showMyDialog(context);},
               ),
             ]),
@@ -164,9 +169,10 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
             TextButton(
               child: const Text('Ja'),
               onPressed: () {
+                ListStudents().UpdateExamenStudents(number);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ExEnd()),
+                  MaterialPageRoute(builder: (context) => const ExEnd()),
                 );
               },
             ),

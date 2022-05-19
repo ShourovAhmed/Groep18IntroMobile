@@ -73,6 +73,9 @@ class CodeVraag extends StatelessWidget{
                       }
                     );
 
+                    vraag.clear();
+                    oplossing.clear();
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ExamList()),

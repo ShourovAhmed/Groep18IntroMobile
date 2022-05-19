@@ -124,6 +124,10 @@ class MultiVraag extends StatelessWidget{
                         "solution": solution.text
                       }
                     );
+
+                    q.clear();
+                    options.clear();
+                    solution.clear();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ExamList()),

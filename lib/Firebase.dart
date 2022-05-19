@@ -38,4 +38,35 @@ class firebase{
     });
     return studs;
   }
+
+  Future<void> AddQuestions(String index, String question) async{
+    await FirebaseFirestore.instance.collection("Questions").where(
+        'index', isEqualTo: index).get().then((value) async =>{
+      if (value.size == 0) {
+        await FirebaseFirestore.instance.collection("Questions").add(
+            {"question": question, 'index': index}
+        )
+      }
+    });
+  }
+  /*
+  Future<void> DeleteStudents(String number) async {
+    await FirebaseFirestore.instance.collection("Studenten").where(
+        'snumber', isEqualTo: number).get().then((value) =>
+        value.docs.first.reference.delete());
+  }
+
+   */
+
+  Future<Map<String, String>> GetQuestions() async {
+
+    var questions = <String, String>{};
+
+    await FirebaseFirestore.instance.collection("Questions").get().then((value) => {
+      value.docs.forEach((element) {
+        questions[element.get('index')] = element.get('question');
+      })
+    });
+    return questions;
+  }
 }

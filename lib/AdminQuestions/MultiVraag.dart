@@ -1,6 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../ExamList.dart';
+import '../Firebase.dart';
+
+final fb = new firebase();
+final q = TextEditingController();
+final options = TextEditingController();
+final solution = TextEditingController();
 
 class MultiVraag extends StatelessWidget{
   @override
@@ -30,6 +37,7 @@ class MultiVraag extends StatelessWidget{
                 SizedBox(
                     width: 800.0,
                     child: TextField(
+                      controller: q,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           //labelText: 'Open vraag',
@@ -55,6 +63,7 @@ class MultiVraag extends StatelessWidget{
                 SizedBox(
                     width: 800.0,
                     child: TextField(
+                      controller: options,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           //labelText: 'Open vraag',
@@ -80,6 +89,7 @@ class MultiVraag extends StatelessWidget{
                 SizedBox(
                     width: 800.0,
                     child: TextField(
+                      controller: solution,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           //labelText: 'Open vraag',
@@ -103,6 +113,17 @@ class MultiVraag extends StatelessWidget{
                   ),
                   child: Text("Voeg toe", style: TextStyle(fontSize: (40)),),
                   onPressed: () {
+
+                    FirebaseFirestore.instance.collection("Questions").add(
+                      {
+                        "question": q.text,
+                        "index": 1,
+                        "id": "multi",
+
+                        "options": options.text.split(','),
+                        "solution": solution.text
+                      }
+                    );
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ExamList()),

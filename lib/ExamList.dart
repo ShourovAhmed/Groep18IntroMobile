@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intro_mobile_project/AdminPage.dart';
 import 'AdminQuestions/CodeVraag.dart';
 import 'AdminQuestions/OpenVraag.dart';
 import 'AdminQuestions/MultiVraag.dart';
+import 'AdminQuestions/QuestionInput.dart';
 import 'Firebase.dart';
 
 
@@ -10,6 +12,8 @@ final index = "";
 final quest = "";
 int counter = 0;
 final List<String> questions = <String>[];
+
+
 /*
 @override
 void dispose() {
@@ -19,17 +23,25 @@ void dispose() {
  */
 
 
+
 class ExamList extends StatefulWidget {
+  late Input input;
+
+  //ExamList(this.input, {Key? key}) : super(key: key);
+
   @override
   _State createState() => _State();
+
 }
 
 class _State extends State<ExamList> {
 
-
-
   TextEditingController nameController = TextEditingController();
 
+  void refresh(){
+    questions.insert(questions.length, input.toString());
+  }
+/*
   void addOpen(){
     setState(() {
       questions.insert(questions.length,'Open vraag');
@@ -51,7 +63,7 @@ class _State extends State<ExamList> {
       fb.AddQuestions('${questions.length}', 'Code vraag');
     });
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,18 +76,22 @@ class _State extends State<ExamList> {
               Expanded(
                   child: ListView.builder(
                       padding: const EdgeInsets.all(8),
-                      itemCount: questions.length,
+                      itemCount: 0,
                       itemBuilder: (BuildContext context, int index) {
+
                         return Container(
                           height: 50,
                           margin: EdgeInsets.all(2),
-                          child: Center(
-                              child: Text('${questions[index]} (${[index]})',
 
-                                //style: TextStyle(fontSize: 18),
-                              )
+                          child: Center(
+                              child: Text('${fb.GetQuestions()}',
+                                style: TextStyle(fontSize: 18),
+                              ),
+
                           ),
+
                         );
+
                       }
                   )
               ),
@@ -145,6 +161,24 @@ class _State extends State<ExamList> {
                           context,
                           MaterialPageRoute(builder: (context) => CodeVraag()),
                         );
+
+                      },
+                    ),
+
+                    SizedBox(
+                        height: 50
+                    ),
+
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        //primary: Colors.orange,
+                        padding: const EdgeInsets.symmetric(horizontal: 72, vertical: 20),
+                        textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      child: Text('Refresh'),
+                      onPressed: () {
+                        refresh();
+
 
                       },
                     ),

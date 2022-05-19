@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'AdminQuestions/QuestionInput.dart';
 import 'ExamList.dart';
 import 'main.dart';
 import 'Firebase.dart';
 import 'Adminstudentselect.dart';
+late final Input input;
 
 class AdminHome extends StatelessWidget {
+
   const AdminHome({Key? key}) : super(key: key);
 
   @override
@@ -26,6 +29,9 @@ class AdminHome extends StatelessWidget {
                 ),
                 child: const Text('Examenvragen'),
                 onPressed: () {
+                  input = Input(
+                      question: ""
+                  );
                   // Navigate to second route when tapped.
                   Navigator.push(
                     context,

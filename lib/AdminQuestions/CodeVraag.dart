@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 
 import '../ExamList.dart';
 import '../Firebase.dart';
+import 'QuestionInput.dart';
 
 final fb = new firebase();
 final vraag = TextEditingController();
 final oplossing = TextEditingController();
 
 class CodeVraag extends StatelessWidget{
+
+  late final Input input;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +29,7 @@ class CodeVraag extends StatelessWidget{
               //crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 50,
+                  height: 100,
                 ),
                 Column(
                   children: [
@@ -37,7 +41,7 @@ class CodeVraag extends StatelessWidget{
                       height: 20,
                     ),
                     SizedBox(
-                        width: 800.0,
+                        width: 600.0,
                         child: TextField(
                           controller: vraag,
                             decoration: InputDecoration(
@@ -47,7 +51,7 @@ class CodeVraag extends StatelessWidget{
                             ),
                             style: TextStyle(
                                 fontSize: 40.0,
-                                height: 2.0,
+                                height: 6.0,
                                 color: Colors.black
                             )
                         )
@@ -62,6 +66,10 @@ class CodeVraag extends StatelessWidget{
                   ),
                   child: Text("Voeg toe", style: TextStyle(fontSize: (40)),),
                   onPressed: () {
+
+                    input = Input(
+                        question: vraag.text
+                    );
 
                     FirebaseFirestore.instance.collection("Questions").add(
                       {
@@ -93,7 +101,7 @@ class CodeVraag extends StatelessWidget{
                       height: 20,
                     ),
                     SizedBox(
-                        width: 800.0,
+                        width: 600.0,
                         child: TextField(
                           controller: oplossing,
                             decoration: InputDecoration(
@@ -103,7 +111,7 @@ class CodeVraag extends StatelessWidget{
                             ),
                             style: TextStyle(
                                 fontSize: 40.0,
-                                height: 2.0,
+                                height: 6.0,
                                 color: Colors.black
                             )
                         )

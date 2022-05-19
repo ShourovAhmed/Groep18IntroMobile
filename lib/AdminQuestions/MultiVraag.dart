@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 
 import '../ExamList.dart';
 import '../Firebase.dart';
+import 'QuestionInput.dart';
 
 final fb = new firebase();
 final q = TextEditingController();
 final options = TextEditingController();
 final solution = TextEditingController();
 
+
 class MultiVraag extends StatelessWidget{
+  late final Input input;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,13 +29,13 @@ class MultiVraag extends StatelessWidget{
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
 
                 Text('Multiple Choice:', style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
 
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 SizedBox(
                     width: 800.0,
@@ -45,7 +48,7 @@ class MultiVraag extends StatelessWidget{
                         ),
                         style: TextStyle(
                             fontSize: 40.0,
-                            height: 2.0,
+                            height: 1.5,
                             color: Colors.black
                         )
                     )
@@ -58,7 +61,7 @@ class MultiVraag extends StatelessWidget{
                 Text('Opties:', style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
 
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 SizedBox(
                     width: 800.0,
@@ -71,7 +74,7 @@ class MultiVraag extends StatelessWidget{
                         ),
                         style: TextStyle(
                             fontSize: 40.0,
-                            height: 2.0,
+                            height: 1.5,
                             color: Colors.black
                         )
                     )
@@ -84,7 +87,7 @@ class MultiVraag extends StatelessWidget{
                 Text('Oplossing:', style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
 
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 SizedBox(
                     width: 800.0,
@@ -97,13 +100,13 @@ class MultiVraag extends StatelessWidget{
                         ),
                         style: TextStyle(
                             fontSize: 40.0,
-                            height: 2.0,
+                            height: 1.5,
                             color: Colors.black
                         )
                     )
                 ),
 
-                SizedBox(height: 50,),
+                SizedBox(height: 30,),
 
 
                 ElevatedButton(
@@ -113,7 +116,11 @@ class MultiVraag extends StatelessWidget{
                   ),
                   child: Text("Voeg toe", style: TextStyle(fontSize: (40)),),
                   onPressed: () {
+                    input = Input(
 
+                        question: q.text
+                    );
+                    //ExamList.questions.add(q.text);
                     FirebaseFirestore.instance.collection("Questions").add(
                       {
                         "question": q.text,

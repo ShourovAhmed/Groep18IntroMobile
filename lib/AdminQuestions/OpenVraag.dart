@@ -6,6 +6,7 @@ import '../Firebase.dart';
 import 'QuestionInput.dart';
 
 
+
 final fb = new firebase();
 final myController = TextEditingController();
 //late final Input input;
@@ -61,6 +62,7 @@ class OpenVraag extends StatelessWidget{
                     input = Input(
                       question: myController.text
                     );
+
                     FirebaseFirestore.instance.collection("Questions").add(
                       {
 
@@ -75,7 +77,7 @@ class OpenVraag extends StatelessWidget{
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ExamList(
-                        //input: input
+
                       )),
                     );
                   },

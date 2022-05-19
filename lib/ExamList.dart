@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'AdminQuestions/CodeVraag.dart';
 import 'AdminQuestions/OpenVraag.dart';
 import 'AdminQuestions/MultiVraag.dart';
 import 'Firebase.dart';
@@ -139,12 +140,11 @@ class _State extends State<ExamList> {
                       ),
                       child: Text('Code vraag'),
                       onPressed: () {
-                        addCode();
-                        /*
+                        //addCode();
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => QuestionCode()),
-                        );*/
+                          MaterialPageRoute(builder: (context) => CodeVraag()),
+                        );
 
                       },
                     ),

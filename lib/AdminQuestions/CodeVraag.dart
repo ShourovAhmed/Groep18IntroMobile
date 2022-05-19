@@ -1,6 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../ExamList.dart';
+import '../Firebase.dart';
+
+final fb = new firebase();
+final vraag = TextEditingController();
+final oplossing = TextEditingController();
 
 class CodeVraag extends StatelessWidget{
   @override
@@ -33,6 +39,7 @@ class CodeVraag extends StatelessWidget{
                     SizedBox(
                         width: 800.0,
                         child: TextField(
+                          controller: vraag,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               //labelText: 'Open vraag',
@@ -55,6 +62,17 @@ class CodeVraag extends StatelessWidget{
                   ),
                   child: Text("Voeg toe", style: TextStyle(fontSize: (40)),),
                   onPressed: () {
+
+                    FirebaseFirestore.instance.collection("Questions").add(
+                      {
+                        "question": vraag.text,
+                        "index": 3,
+                        "id": "code",
+
+                        "solution": oplossing.text
+                      }
+                    );
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ExamList()),
@@ -74,6 +92,7 @@ class CodeVraag extends StatelessWidget{
                     SizedBox(
                         width: 800.0,
                         child: TextField(
+                          controller: oplossing,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               //labelText: 'Open vraag',

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intro_mobile_project/AdminQuestions/OpenVraag.dart';
+import 'AdminQuestions/OpenVraag.dart';
+import 'AdminQuestions/MultiVraag.dart';
 import 'Firebase.dart';
-import 'Questions/CodeQuestion.dart';
-import 'Questions/OpenQuestion.dart';
-import 'Questions/OptionQuestion.dart';
+
 
 final fb = new firebase();
 final index = "";
@@ -119,7 +118,12 @@ class _State extends State<ExamList> {
                     ),
                     child: Text('Multiple choice'),
                     onPressed: () {
-                      addMulti();
+                      //addMulti();
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MultiVraag()),
+                      );
                     },
                   ),
 

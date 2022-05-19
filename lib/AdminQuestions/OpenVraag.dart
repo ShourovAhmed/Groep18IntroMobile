@@ -8,7 +8,7 @@ class OpenVraag extends StatelessWidget{
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.orange,
-          title: const Text('Admin'),
+          title: const Text('Admin - Open Vraag'),
         ),
 
 

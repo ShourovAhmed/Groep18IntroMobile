@@ -172,7 +172,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                 ListStudents().UpdateExamenStudents(number);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ExEnd()),
+                  MaterialPageRoute(builder: (context) => ExEnd(number, EndTime)),
                 );
               },
             ),

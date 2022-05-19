@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Adminstudentlocation.dart';
 
 
 class ExamenAdminCheck extends StatelessWidget {
@@ -91,10 +92,11 @@ class ExamenAdminCheck extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ExamenAdminCheck("name", "number")),
+                        MaterialPageRoute(builder: (context) => LocationStudent(number)),
                       );
                     },
                   ),
+                  const Text("Vaardigheidstoets Intro Mobile", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),   // naam firebase
                 ],
               ),
             ],

@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 import 'package:geolocator/geolocator.dart';
 import 'location.dart';
-import 'Firebase.dart';
-
+import 'studentlist.dart';
 class ExEnd extends StatefulWidget{
-  const ExEnd({Key? key}) : super(key: key);
+  const ExEnd(this.number, this.time);
+
+  final String number;
+  final int time;
+
 
   @override
-  _ExEnd createState() => _ExEnd();
+  _ExEnd createState() => _ExEnd(number, time);
 }
 class _ExEnd extends State<ExEnd> {
+  _ExEnd(this.number, this.time);
 
+  final String number;
+  final int time;
   late Position pos;
 
   @override
@@ -55,8 +61,8 @@ class _ExEnd extends State<ExEnd> {
     );
   }
   void UpdateStudent() {
-    print(pos.longitude);
-    print(pos.latitude);
-    firebase().UpdateStudentLocation("s112233", pos.longitude.toString(), pos.latitude.toString());  // test number
+    ListStudents().UpdateLocation(number, pos.latitude.toString(), pos.longitude.toString());
+    ListStudents().Settime(number, time);
+    //firebase().UpdateStudentLocation("s112233", pos.longitude.toString(), pos.latitude.toString());  // test number
   }
 }

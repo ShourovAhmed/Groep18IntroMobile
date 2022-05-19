@@ -3,6 +3,7 @@ class Student {
   late String name;
   late String long = "";
   late String lat = "";
+  late int time = 0;
   late bool ExamDone = false;
 
   Student(Number,Name) {

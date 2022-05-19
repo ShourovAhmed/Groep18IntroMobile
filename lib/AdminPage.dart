@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'ExamList.dart';
 import 'main.dart';
-import 'passwordchange.dart';
+import 'Firebase.dart';
+import 'Adminstudentselect.dart';
 
 class AdminHome extends StatelessWidget {
   const AdminHome({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class AdminHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orange,
-        title: const Text('Home Admin'),
+        title: const Text('Admin - Examen'),
       ),
       body: Center(
         child: Column(
@@ -23,7 +24,7 @@ class AdminHome extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 72, vertical: 20),
                   textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Examenvragen'),
+                child: const Text('Examenvragen'),
                 onPressed: () {
                   // Navigate to second route when tapped.
                   Navigator.push(
@@ -32,7 +33,7 @@ class AdminHome extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               ElevatedButton(
@@ -41,35 +42,20 @@ class AdminHome extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Verbeter examens'),
+                child: const Text('Verbeter examens'),
                 onPressed: () {
                   // Navigate to second route when tapped.
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SecondRoute()),
+                    MaterialPageRoute(builder: (context) => AdminSelectStudent()),
                   );
                 },
               ),
-              ElevatedButton(onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordWidget()),);}, child: Text('wachtwoord wijzigen(voorlopig)'))              //          voorlopige button            //
             ]),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.orange,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_box_rounded),
-            label: 'Examen',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment),
-            label: 'Studenten',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.lock),
-            label: 'Wachtwoord wijzigen',
-          ),
-        ],
-      ),
     );
+  }
+  void test() {
+    firebase().GetStudents();
   }
 }

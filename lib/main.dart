@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'login.dart';
-import 'AdminPage.dart';
+import 'BottomBar.dart';
+import 'studentenselect.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ class FirstRoute extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.orange,
-          title: const Text('Home'),
+          title: const Text('EyeWatch'),
         ),
         body: Center(
           child: Row(
@@ -42,7 +43,7 @@ class FirstRoute extends StatelessWidget {
                     );
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 100,
                 ),
                 ElevatedButton(
@@ -51,12 +52,12 @@ class FirstRoute extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                     textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
-                  child: Text('Student'),
+                  child: const Text('Student'),
                   onPressed: () {
                     // Navigate to second route when tapped.
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SecondRoute()),
+                      MaterialPageRoute(builder: (context) => SelectStudent()),
                     );
                   },
                 ),
@@ -66,13 +67,14 @@ class FirstRoute extends StatelessWidget {
 }
 
 class SecondRoute extends StatelessWidget{
+  const SecondRoute({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) => Scaffold(
     body: StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if(snapshot.hasData) {
-          return AdminHome();
+          return BottomNavBar();
         }
         else {
           return LoginWidget();
@@ -80,5 +82,4 @@ class SecondRoute extends StatelessWidget{
       },
     ),
   );
-
 }

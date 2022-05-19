@@ -16,7 +16,7 @@ class ChangePasswordWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orange,
-        title: const Text('Admin'),
+        title: const Text('Admin - Wachtwoord'),
       ),
       body: Center(
           child: Column(
@@ -52,24 +52,6 @@ class ChangePasswordWidget extends StatelessWidget {
               ),
             ],
           )
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.orange,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_box_rounded),
-            label: 'Examen',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment),
-            label: 'Studenten',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.lock),
-            label: 'Wachtwoord wijzigen',
-
-          ),
-        ],
       ),
     );
   }

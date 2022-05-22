@@ -41,15 +41,15 @@ class _State extends State<ExamList> {
   Future<List<Question>>? qList;
   List<Question>? retrievedQList;
 
-
-  set questions(List<Question> questions) {}
+  List<Question> questions = [];
+  //set questions(List<Question> questions) {}
 
   @override
   void initState(){
     //_initRetrieval();
     firebase().retrieveQuestions().then((value) => {
       setState((){
-        this.questions = value;
+        questions = value;
       })
     });
     super.initState();
@@ -94,7 +94,15 @@ class _State extends State<ExamList> {
           backgroundColor: Colors.orange,
           title: Text('Exam Questions'),
         ),
-        body: Row(
+        body: ListView(
+          children: [
+            for(var question in questions)
+              Container(
+                height: 40,
+                child: Text(question.question),
+              ),
+          ],
+          /*
             children: <Widget>[
               Expanded(
                   child: FutureBuilder(
@@ -225,14 +233,15 @@ class _State extends State<ExamList> {
                       child: Text('Refresh'),
                       onPressed: () {
                         refresh();
-
-
                       },
                     ),
-
               ],
               ),
               )]
+
+
+           */
+
         )
     );
   }

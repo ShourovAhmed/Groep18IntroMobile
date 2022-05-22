@@ -3,11 +3,14 @@ import 'main.dart';
 import 'package:geolocator/geolocator.dart';
 import 'location.dart';
 import 'studentlist.dart';
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
+
+
 class ExEnd extends StatefulWidget{
   const ExEnd(this.number, this.time);
 
   final String number;
-  final int time;
+  final CurrentRemainingTime? time;
 
 
   @override
@@ -17,7 +20,7 @@ class _ExEnd extends State<ExEnd> {
   _ExEnd(this.number, this.time);
 
   final String number;
-  final int time;
+  final CurrentRemainingTime? time;
   late Position pos;
 
   @override

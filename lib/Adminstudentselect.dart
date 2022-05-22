@@ -19,6 +19,7 @@ class AdminSelectStudent extends StatelessWidget {
   List<ElevatedButton> blijst = [];
 
   var studenten = <String,String>{};
+  int counter = 0;
 
 
   /*
@@ -78,14 +79,17 @@ class AdminSelectStudent extends StatelessWidget {
         blijst.add(ElevatedButton(onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ExamenAdminCheck(slijst[i].name, slijst[i].snumber)),
+            MaterialPageRoute(builder: (context) => ExamAdminCheck(slijst[i].name, slijst[i].snumber)),
           );
         }, child: Text(slijst[i].name + " (" + slijst[i].snumber + ")")));
 
       }
       else{
-        blijst.add(const ElevatedButton(onPressed: null, child: Text("Er zijn geen studenten die een examen hebben gemaakt")));
+        counter++;
       }
+    }
+    if(counter >= 1) {
+      blijst.add(const ElevatedButton(onPressed: null, child: Text("Er zijn geen studenten die een examen hebben gemaakt")));
     }
     return blijst;
   }

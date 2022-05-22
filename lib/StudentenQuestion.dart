@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'Questions/OpenQuestion.dart';
 import 'Questions/OptionQuestion.dart';
@@ -22,6 +23,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
 
   final String number;
   AppLifecycleState? notification;
+  CurrentRemainingTime? Time;
 
   int EndTime = DateTime.now().millisecondsSinceEpoch + 1000 * 7200;
 
@@ -79,8 +81,17 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                       borderRadius: const BorderRadius.all(Radius.circular(20))
                   ),
                   child: CountdownTimer(
-                    textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     endTime: EndTime,
+                    widgetBuilder: (_, CurrentRemainingTime? time) {
+                      timed(time);
+                      if (time == null) {
+                        return const Text("Uw tijd is om!");
+                      }
+                      return Text(
+                        "${time.hours} : ${time.min} : ${time.sec}",
+                        style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -172,7 +183,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
                 ListStudents().UpdateExamenStudents(number);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ExEnd(number, EndTime)),
+                  MaterialPageRoute(builder: (context) => ExEnd(number, Time)),
                 );
               },
             ),
@@ -186,5 +197,8 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
         );
       },
     );
+  }
+  void timed(time) {
+    Time = time;
   }
 }

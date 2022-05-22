@@ -26,12 +26,12 @@ class ChangePasswordWidget extends StatelessWidget {
                   width: 800.0,
                   child: TextField(
                       controller: emailController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'e-mail',
                         hintText: 'Geef uw e-mail in',
                       ),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 35.0,
                         height: 2.0,
                         color: Colors.black,
@@ -39,13 +39,13 @@ class ChangePasswordWidget extends StatelessWidget {
                       )
                   )
               ),
-              SizedBox(height: 50,),
+              const SizedBox(height: 50,),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    minimumSize: Size(200,80),
+                    minimumSize: const Size(200,80),
                     primary: Colors.orange
                 ),
-                child: Text("Verstuur", style: TextStyle(fontSize: (40)),),
+                child: const Text("Verstuur", style: TextStyle(fontSize: (40)),),
                 onPressed: () {
                   PasswordReset(context);
                 },

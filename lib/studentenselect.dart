@@ -15,8 +15,9 @@ class SelectStudent extends StatefulWidget {
 class SelectStudent extends StatelessWidget {
   SelectStudent({Key? key}) : super(key: key);
 
+  List<Student> allslijst = [];
   List<Student> slijst = [];
-  List<ElevatedButton> blijst = [];
+  List<Row> blijst = [];
 
   var studenten = <String,String>{};
 
@@ -71,14 +72,30 @@ class SelectStudent extends StatelessWidget {
     );
   }
   List<Widget> buildButtons(BuildContext context) {
-    slijst = ListStudents().GetStudents();
-    for(int i = 0; i < slijst.length; i++) {
-      blijst.add(ElevatedButton(onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => QuestionWidget(slijst[i].snumber)),
-        );
-      }, child: Text(slijst[i].name + " (" + slijst[i].snumber + ")")));
+    allslijst = ListStudents().GetStudents();
+
+    for (int i = 0; i < allslijst.length; i++) {
+      if(studentenlijst[i].ExamDone == false) {
+        slijst.add(allslijst[i]);
+      }
+    }
+    if(slijst.length > 1) {
+      for(int i = 0; i < slijst.length; i++) {
+        blijst.add(Row(children: [
+          const SizedBox(height: 50,),
+          ElevatedButton(onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => QuestionWidget(slijst[i].snumber)),
+            );
+          }, child: Text(slijst[i].name + " (" + slijst[i].snumber + ")"))
+        ],));
+      }
+    }
+    else {
+      blijst.add(Row(children: const [
+        ElevatedButton(onPressed: null, child: Text("Er zijn geen studenten die een examen moeten afleggen"))
+      ],));
     }
     return blijst;
   }

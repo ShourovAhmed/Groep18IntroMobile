@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:intro_mobile_project/AdminPage.dart';
 import 'package:intro_mobile_project/Questions.dart';
 import 'AdminQuestions/CodeVraag.dart';
 import 'AdminQuestions/OpenVraag.dart';
 import 'AdminQuestions/MultiVraag.dart';
 import 'AdminQuestions/QuestionInput.dart';
+import 'Timer.dart';
 import 'Firebase.dart';
 
 
@@ -230,8 +232,14 @@ class _State extends State<ExamList> {
                         padding: const EdgeInsets.symmetric(horizontal: 72, vertical: 20),
                         textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
-                      child: Text('Refresh'),
+                      child: Text('Timer'),
                       onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Timer()),
+                        );
+
+
                         refresh();
                       },
                     ),

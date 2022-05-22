@@ -79,7 +79,7 @@ class SelectStudent extends StatelessWidget {
         slijst.add(allslijst[i]);
       }
     }
-    if(slijst.length > 1) {
+    if(slijst.length >= 1) {
       for(int i = 0; i < slijst.length; i++) {
         blijst.add(Row(children: [
           const SizedBox(height: 50,),

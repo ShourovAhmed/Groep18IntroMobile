@@ -1,4 +1,5 @@
 import 'studentclass.dart';
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
 
 List<Student> studentenlijst = [];
 
@@ -40,19 +41,33 @@ class ListStudents {
     }
     return 0.0;
   }
-  void Settime(String number, int time){
+  void Settime(String number, CurrentRemainingTime? time){
       for(int i = 0; i < studentenlijst.length; i++){
         if(studentenlijst[i].snumber == number) {
           studentenlijst[i].time = time;
       }
     }
   }
-  int Gettime(String number) {
+  CurrentRemainingTime? Gettime(String number) {
     for(int i = 0; i < studentenlijst.length; i++){
       if(studentenlijst[i].snumber == number) {
         return studentenlijst[i].time;
       }
     }
-    return 0;
+  }
+  void SetHasdoneexam(String number, bool examdone) {
+    for(int i = 0; i < studentenlijst.length; i++){
+      if(studentenlijst[i].snumber == number) {
+        studentenlijst[i].ExamDone = examdone;
+      }
+    }
+  }
+  bool GetHasdoneexam(String number) {
+    for(int i = 0; i < studentenlijst.length; i++){
+      if(studentenlijst[i].snumber == number) {
+        return studentenlijst[i].ExamDone;
+      }
+    }
+    return false;
   }
 }

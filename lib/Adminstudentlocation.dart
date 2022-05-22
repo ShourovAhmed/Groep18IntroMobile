@@ -1,13 +1,36 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:intro_mobile_project/studentlist.dart';
+import 'package:http/http.dart' as http;
+import 'studentlist.dart';
+import 'APIclasses/classAPI.dart';
 
 
-class LocationStudent extends StatelessWidget {
+class LocationStudent extends StatefulWidget {
   LocationStudent(this.number, {Key? key}) : super(key: key);
 
   final String number;
-  String adres = "";
+
+  @override
+  _LocationStudent createState() => _LocationStudent(number);
+}
+class _LocationStudent extends State<LocationStudent> {
+  _LocationStudent(this.number);
+
+  late Album Url;
+
+  @override
+  void initState() {
+    GetAddressFromLatLong().then((value) => {
+      setState(() {
+        Url = value;
+      })
+    });
+    super.initState();
+  }
+
+  final String number;
+  bool vsb = true;
 
 
   @override
@@ -23,29 +46,20 @@ class LocationStudent extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.orange,
-                      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                      textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                    child: const Text('Toon adres'),
-                    onPressed: () {
-                      GetAddressFromLatLong();
-                    },
-                  ),
-                  Text(adres, style: const TextStyle(fontSize: 25),)
-            ],
+                  Text(Url.address.postcode + " " + Url.address.city_district + " " + Url.address.road + " " + Url.address.house_number, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+                ],
+              ),
+            ]
           ),
-    ]
-    ),
-    ));
+        ));
   }
-  Future<void> GetAddressFromLatLong()async {
-    List<Placemark> placemarks = await placemarkFromCoordinates(ListStudents().GetLat(number), ListStudents().GetLong(number));
-    print(placemarks);
-    Placemark place = placemarks[0];
-    String Adress = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-    adres = Adress;
+  Future<Album> GetAddressFromLatLong() async{
+    final response = await http.get(Uri.parse('https://nominatim.openstreetmap.org/reverse.php?lat=${ListStudents().GetLat(number)}&lon=${ListStudents().GetLong(number)}&zoom=18&format=jsonv2'));
+
+    if (response.statusCode == 200) {
+      return Album.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load album');
+    }
   }
 }

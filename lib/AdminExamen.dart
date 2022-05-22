@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'Adminstudentlocation.dart';
+import 'studentlist.dart';
 
 
-class ExamenAdminCheck extends StatelessWidget {
-  ExamenAdminCheck(this.name, this.number, {Key? key}) : super(key: key);
+class ExamAdminCheck extends StatefulWidget {
+  const ExamAdminCheck(this.name, this.number, {Key? key}) : super(key: key);
+
+  final String name;
+  final String number;
+
+  @override
+  _ExamAdminCheck createState() => _ExamAdminCheck(name, number);
+}
+class _ExamAdminCheck extends State<ExamAdminCheck>{
+  _ExamAdminCheck(this.name, this.number);
 
   final String name;
   final String number;
   final answer = TextEditingController();
+
+  bool vsbl = false;
+  bool swtch = false;
+  CurrentRemainingTime? time;
 
 
   @override
@@ -33,10 +48,8 @@ class ExamenAdminCheck extends StatelessWidget {
                     ),
                     child: const Text('Toon antwoorden'),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ExamenAdminCheck("name", "number")),
-                      );
+                      gettime();
+                      changevisibility();
                     },
                   ),
                 ],
@@ -77,7 +90,7 @@ class ExamenAdminCheck extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ExamenAdminCheck("name", "number")),
+                        MaterialPageRoute(builder: (context) => ExamAdminCheck("name", "number")),
                       );
                     },
                   ),
@@ -96,12 +109,43 @@ class ExamenAdminCheck extends StatelessWidget {
                       );
                     },
                   ),
-                  const Text("Vaardigheidstoets Intro Mobile", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),   // naam firebase
+                ],
+              ),
+              Row(
+                children: [
+                  Visibility(
+                    child: const Text("tijd over: ", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+                    visible: vsbl,
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Visibility(
+                    child: Text("${time?.hours}:${time?.min}:${time?.sec}", style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+                    visible: vsbl,
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
+                  ),
                 ],
               ),
             ],
           ),
         )
     );
+  }
+  void changevisibility() {
+    if(vsbl == false){vsbl = true;}
+    else{vsbl = false;}
+    setState(() {
+
+    });
+  }
+  void gettime() {
+    time = ListStudents().Gettime(number);
   }
 }

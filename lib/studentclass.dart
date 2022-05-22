@@ -1,9 +1,11 @@
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
+
 class Student {
   late String snumber;
   late String name;
   late String long = "";
   late String lat = "";
-  late int time = 0;
+  late CurrentRemainingTime? time;
   late bool ExamDone = false;
 
   Student(Number,Name) {

@@ -2,18 +2,29 @@ import 'package:flutter/material.dart';
 
 import '../QuestionList.dart';
 
-class QuestionOption extends StatelessWidget{
+class QuestionOption extends StatefulWidget {
+  const QuestionOption({Key? key}) : super(key: key);
 
+  @override
+  _State createState() {
+    return _State();
+  }
+
+}
+
+class _State extends State<QuestionOption>{
   final answercontroller = TextEditingController();
   var Questionlist = ListQuestions().GetQuestions();
   var id = "multi";
+  String val = "z";
 
-  QuestionOption({Key? key}) : super(key: key);
-
+/*
   @override
   void dispose() {
     answercontroller.dispose();
   }
+
+ */
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +45,45 @@ class QuestionOption extends StatelessWidget{
               ),
               child: Text('${Questionlist[id]}', style: const TextStyle(fontSize: 40),),
             ),
-            TextField(
-                controller: answercontroller,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Geef hier uw antwoord',
+            Column(
+              children: [
+                ListTile(
+                  title: Text("A"),
+                  leading: Radio<String>(
+                    value: "a",
+                    groupValue: val,
+                    onChanged: (value) {
+                      setState(() {
+                        val = value!;
+                      });
+                    },
+                  ),
                 ),
-                minLines: 1,
-                maxLines: 5,
-                style: const TextStyle(
-                  fontSize: 25.0,
-                  height: 1.0,
-                  color: Colors.black,
+                ListTile(
+                  title: Text("B"),
+                  leading: Radio<String>(
+                    value: "b",
+                    groupValue: val,
+                    onChanged: (value) {
+                      setState(() {
+                        val = value!;
+                      });
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: Text("C"),
+                  leading: Radio<String>(
+                    value: "c",
+                    groupValue: val,
+                    onChanged: (value) {
+                      setState(() {
+                        val = value!;
+                      });
+                    },
+                  ),
                 )
+              ],
             ),
             ElevatedButton(onPressed: () {
               Navigator.push(

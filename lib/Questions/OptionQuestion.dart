@@ -16,6 +16,7 @@ class _State extends State<QuestionOption>{
   final answercontroller = TextEditingController();
   var Questionlist = ListQuestions().GetQuestions();
   var id = "multi";
+  var Optionslist = ListQuestions().GetOptions();
   String val = "z";
 
 /*
@@ -48,9 +49,9 @@ class _State extends State<QuestionOption>{
             Column(
               children: [
                 ListTile(
-                  title: Text("A"),
+                  title: Text(Optionslist[0]),
                   leading: Radio<String>(
-                    value: "a",
+                    value: Optionslist[0],
                     groupValue: val,
                     onChanged: (value) {
                       setState(() {
@@ -60,9 +61,9 @@ class _State extends State<QuestionOption>{
                   ),
                 ),
                 ListTile(
-                  title: Text("B"),
+                  title: Text(Optionslist[1]),
                   leading: Radio<String>(
-                    value: "b",
+                    value: Optionslist[1],
                     groupValue: val,
                     onChanged: (value) {
                       setState(() {
@@ -72,9 +73,9 @@ class _State extends State<QuestionOption>{
                   ),
                 ),
                 ListTile(
-                  title: Text("C"),
+                  title: Text(Optionslist[2]),
                   leading: Radio<String>(
-                    value: "c",
+                    value: Optionslist[2],
                     groupValue: val,
                     onChanged: (value) {
                       setState(() {

@@ -133,6 +133,7 @@ class MultiVraag extends StatelessWidget{
                       }
                     );
                     ListQuestions().AddQuestion("multi", q.text);
+                    ListQuestions().AddOption(options.text.split(','));
 
                     q.clear();
                     options.clear();

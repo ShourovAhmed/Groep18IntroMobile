@@ -24,7 +24,6 @@ void dispose() {
 //late List<String> questions = <String>[];
 
 class ExamList extends StatefulWidget {
-  late Input input;
 
 
   //ExamList(this.input, {Key? key}) : super(key: key);

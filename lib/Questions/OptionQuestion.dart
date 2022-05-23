@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../AnswerList.dart';
 import '../QuestionList.dart';
 
 class QuestionOption extends StatefulWidget {
@@ -100,6 +101,7 @@ class _State extends State<QuestionOption>{
                     "id": "multi"
                   }
               );
+              ListAnswers().AddAnswer("multi", radioItemHolder);
               _showMyDialog(context);
             },
                 style: ElevatedButton.styleFrom(

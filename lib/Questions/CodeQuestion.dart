@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../AnswerList.dart';
 import '../QuestionList.dart';
 
 class QuestionCode extends StatelessWidget{
@@ -61,6 +62,7 @@ class QuestionCode extends StatelessWidget{
                     "id": "code"
                   }
               );
+              ListAnswers().AddAnswer("code", answercontroller.text);
             _showMyDialog(context);
             },
                 style: ElevatedButton.styleFrom(

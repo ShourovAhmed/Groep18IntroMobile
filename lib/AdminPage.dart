@@ -29,9 +29,6 @@ class AdminHome extends StatelessWidget {
                 ),
                 child: const Text('Examenvragen'),
                 onPressed: () {
-                  input = Input(
-                      question: ""
-                  );
                   // Navigate to second route when tapped.
                   Navigator.push(
                     context,

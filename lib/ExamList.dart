@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intro_mobile_project/QuestionList.dart';
 import 'package:intro_mobile_project/Questions.dart';
 import 'AdminQuestions/CodeVraag.dart';
 import 'AdminQuestions/OpenVraag.dart';
@@ -14,7 +15,7 @@ final fb = new firebase();
 final index = "";
 final quest = "";
 int counter = 0;
-final List<String> questions = <String>[];
+
 
 
 /*
@@ -22,18 +23,19 @@ final List<String> questions = <String>[];
 void dispose() {
   questions.dispose();
 }
-
  */
 
-
+//late List<String> questions = <String>[];
 
 class ExamList extends StatefulWidget {
   late Input input;
+
 
   //ExamList(this.input, {Key? key}) : super(key: key);
 
   @override
   _State createState() => _State();
+  
 
 }
 
@@ -42,19 +44,12 @@ class _State extends State<ExamList> {
   TextEditingController nameController = TextEditingController();
   Future<List<Question>>? qList;
   List<Question>? retrievedQList;
-
-  List<Question> questions = [];
-  //set questions(List<Question> questions) {}
+  late List<String> questions = ListQuestions().GetQuestions();
+ 
 
   @override
   void initState(){
-    //_initRetrieval();
-    firebase().retrieveQuestions().then((value) => {
-      setState((){
-        questions = value;
-      })
-    });
-    super.initState();
+    _initRetrieval();
   }
 
   Future<void> _initRetrieval() async {
@@ -96,18 +91,19 @@ class _State extends State<ExamList> {
           backgroundColor: Colors.orange,
           title: Text('Exam Questions'),
         ),
-        body: /*ListView(
-          children: [
-            for(var question in questions)
-              Container(
-                height: 40,
-                child: Text(question.question),
-              ),
-          ],*/
-          Row(
+        body:           Row(
             children: <Widget>[
               Expanded(
-                  child: FutureBuilder(
+                  child: ListView.builder(
+                      itemCount: ListQuestions().GetQuestions().length,
+                      itemBuilder: (BuildContext context, int index){
+                        if(context != null){
+                        return Text(questions[index]);}
+                        else{
+                          return Text("");
+                        }
+                      })
+                  /*FutureBuilder(
                      future: fb.getQuestions(),
                       builder: (BuildContext context, AsyncSnapshot snapshot){
                        if (snapshot.hasData) {
@@ -150,7 +146,7 @@ class _State extends State<ExamList> {
                           return const Center(child: CircularProgressIndicator(),);
                         }
                       }*/
-                      )
+                      )*/
               ),
 
               Expanded(

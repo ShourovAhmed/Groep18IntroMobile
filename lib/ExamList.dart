@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intro_mobile_project/QuestionList.dart';
 import 'package:intro_mobile_project/Questions.dart';
+import 'package:intro_mobile_project/main.dart';
 import 'AdminQuestions/CodeVraag.dart';
 import 'AdminQuestions/OpenVraag.dart';
 import 'AdminQuestions/MultiVraag.dart';
@@ -232,7 +233,7 @@ class _State extends State<ExamList> {
 
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        //primary: Colors.orange,
+                        primary: Colors.red,
                         padding: const EdgeInsets.symmetric(horizontal: 72, vertical: 20),
                         textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
@@ -241,6 +242,24 @@ class _State extends State<ExamList> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => Timer()),
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.orange,
+                        padding: const EdgeInsets.symmetric(horizontal: 72, vertical: 20),
+                        textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      child: Text('Home'),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FirstRoute()),
                         );
                       },
                     ),

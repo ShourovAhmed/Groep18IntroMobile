@@ -12,11 +12,6 @@ import 'Firebase.dart';
 
 
 final fb = new firebase();
-final index = "";
-final quest = "";
-int counter = 0;
-
-
 
 /*
 @override
@@ -98,7 +93,19 @@ class _State extends State<ExamList> {
                       itemCount: ListQuestions().GetQuestions().length,
                       itemBuilder: (BuildContext context, int index){
                         if(context != null){
-                        return Text(questions[index]);}
+                          return Container(
+                            height: 50,
+                            margin: EdgeInsets.all(2),
+
+                            child: Center(
+                              child: Text(questions[index],
+                                style: TextStyle(fontSize: 18),
+                              ),
+
+                            ),
+
+                          );
+                        }
                         else{
                           return Text("");
                         }

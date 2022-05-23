@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intro_mobile_project/QuestionList.dart';
 
 import '../ExamList.dart';
 import '../Firebase.dart';
+import '../Questions.dart';
 import 'QuestionInput.dart';
 
 
@@ -56,12 +58,15 @@ class OpenVraag extends StatelessWidget{
                       primary: Colors.orange
                   ),
                   child: Text("Voeg toe", style: TextStyle(fontSize: (40)),),
-                  onPressed: () {
+                  onPressed: () async {
 
-
-                    input = Input(
-                      question: myController.text
+                    /*
+                    Question question = Question(
+                      question: myController.text,
+                      id: 0,
                     );
+
+                     */
 
                     FirebaseFirestore.instance.collection("Questions").add(
                       {
@@ -72,6 +77,9 @@ class OpenVraag extends StatelessWidget{
                       }
 
                     );
+                    ListQuestions().AddQuestion("open", myController.text);
+
+                    //await fb.addQuestion(question);
                     myController.clear();
 
                     Navigator.push(

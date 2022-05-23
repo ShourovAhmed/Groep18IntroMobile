@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intro_mobile_project/QuestionList.dart';
 import 'package:intro_mobile_project/Questions.dart';
+import 'package:intro_mobile_project/main.dart';
 import 'AdminQuestions/CodeVraag.dart';
 import 'AdminQuestions/OpenVraag.dart';
 import 'AdminQuestions/MultiVraag.dart';
@@ -11,29 +13,24 @@ import 'Firebase.dart';
 
 
 final fb = new firebase();
-final index = "";
-final quest = "";
-int counter = 0;
-final List<String> questions = <String>[];
-
 
 /*
 @override
 void dispose() {
   questions.dispose();
 }
-
  */
 
-
+//late List<String> questions = <String>[];
 
 class ExamList extends StatefulWidget {
-  late Input input;
+
 
   //ExamList(this.input, {Key? key}) : super(key: key);
 
   @override
   _State createState() => _State();
+  
 
 }
 
@@ -42,19 +39,13 @@ class _State extends State<ExamList> {
   TextEditingController nameController = TextEditingController();
   Future<List<Question>>? qList;
   List<Question>? retrievedQList;
+  late Map<String, String> questions = ListQuestions().GetQuestions();
 
-  List<Question> questions = [];
-  //set questions(List<Question> questions) {}
+ 
 
   @override
   void initState(){
-    //_initRetrieval();
-    firebase().retrieveQuestions().then((value) => {
-      setState((){
-        questions = value;
-      })
-    });
-    super.initState();
+    _initRetrieval();
   }
 
   Future<void> _initRetrieval() async {
@@ -96,18 +87,31 @@ class _State extends State<ExamList> {
           backgroundColor: Colors.orange,
           title: Text('Exam Questions'),
         ),
-        body: /*ListView(
-          children: [
-            for(var question in questions)
-              Container(
-                height: 40,
-                child: Text(question.question),
-              ),
-          ],*/
-          Row(
+        body:           Row(
             children: <Widget>[
               Expanded(
-                  child: FutureBuilder(
+                  child: ListView.builder(
+                      itemCount: ListQuestions().GetQuestions().length,
+                      itemBuilder: (BuildContext context, int index){
+                        if(context != null){
+                          return Container(
+                            height: 50,
+                            margin: EdgeInsets.all(2),
+
+                            child: Center(
+                              child: Text(questions.values.toList()[index],
+                                style: TextStyle(fontSize: 18),
+                              ),
+
+                            ),
+
+                          );
+                        }
+                        else{
+                          return Text("");
+                        }
+                      })
+                  /*FutureBuilder(
                      future: fb.getQuestions(),
                       builder: (BuildContext context, AsyncSnapshot snapshot){
                        if (snapshot.hasData) {
@@ -150,7 +154,7 @@ class _State extends State<ExamList> {
                           return const Center(child: CircularProgressIndicator(),);
                         }
                       }*/
-                      )
+                      )*/
               ),
 
               Expanded(
@@ -228,7 +232,7 @@ class _State extends State<ExamList> {
 
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        //primary: Colors.orange,
+                        primary: Colors.red,
                         padding: const EdgeInsets.symmetric(horizontal: 72, vertical: 20),
                         textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
@@ -237,6 +241,24 @@ class _State extends State<ExamList> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => Timer()),
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.orange,
+                        padding: const EdgeInsets.symmetric(horizontal: 72, vertical: 20),
+                        textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      child: Text('Home'),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FirstRoute()),
                         );
                       },
                     ),

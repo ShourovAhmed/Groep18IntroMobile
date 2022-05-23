@@ -81,7 +81,7 @@ class CodeVraag extends StatelessWidget{
                         "solution": oplossing.text
                       }
                     );
-                    ListQuestions().AddQuestion(vraag.text);
+                    ListQuestions().AddQuestion("code", vraag.text);
                     vraag.clear();
                     oplossing.clear();
 

@@ -77,7 +77,7 @@ class OpenVraag extends StatelessWidget{
                       }
 
                     );
-                    ListQuestions().AddQuestion(myController.text);
+                    ListQuestions().AddQuestion("open", myController.text);
 
                     //await fb.addQuestion(question);
                     myController.clear();

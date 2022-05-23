@@ -39,7 +39,8 @@ class _State extends State<ExamList> {
   TextEditingController nameController = TextEditingController();
   Future<List<Question>>? qList;
   List<Question>? retrievedQList;
-  late List<String> questions = ListQuestions().GetQuestions();
+  late Map<String, String> questions = ListQuestions().GetQuestions();
+
  
 
   @override
@@ -98,7 +99,7 @@ class _State extends State<ExamList> {
                             margin: EdgeInsets.all(2),
 
                             child: Center(
-                              child: Text(questions[index],
+                              child: Text(questions.values.toList()[index],
                                 style: TextStyle(fontSize: 18),
                               ),
 

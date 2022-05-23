@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intro_mobile_project/QuestionList.dart';
 
 import '../ExamList.dart';
 import '../Firebase.dart';
@@ -131,6 +132,7 @@ class MultiVraag extends StatelessWidget{
                         "solution": solution.text
                       }
                     );
+                    ListQuestions().AddQuestion(q.text);
 
                     q.clear();
                     options.clear();

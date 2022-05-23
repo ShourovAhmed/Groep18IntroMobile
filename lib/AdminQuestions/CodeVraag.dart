@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intro_mobile_project/QuestionList.dart';
 
 import '../ExamList.dart';
 import '../Firebase.dart';
@@ -80,7 +81,7 @@ class CodeVraag extends StatelessWidget{
                         "solution": oplossing.text
                       }
                     );
-
+                    ListQuestions().AddQuestion(vraag.text);
                     vraag.clear();
                     oplossing.clear();
 

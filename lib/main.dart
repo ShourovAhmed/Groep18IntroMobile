@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:intro_mobile_project/Timer.dart';
 import 'firebase_options.dart';
 import 'login.dart';
 import 'BottomBar.dart';
 import 'studentenselect.dart';
+import 'Timer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,11 +56,17 @@ class FirstRoute extends StatelessWidget {
                   ),
                   child: const Text('Student'),
                   onPressed: () {
+                    _showMyDialog(context);
+                    if(Timer.seconds.isNaN){
+                  _showMyDialog(context);
+                  }
+                    else{
                     // Navigate to second route when tapped.
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SelectStudent()),
                     );
+                    }
                   },
                 ),
               ]),
@@ -81,5 +89,32 @@ class SecondRoute extends StatelessWidget{
         }
       },
     ),
+  );
+}
+
+Future<void> _showMyDialog(context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Warning"),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: const <Widget>[
+              Text('U heeft nog geen tijd toegevoegd!'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
   );
 }

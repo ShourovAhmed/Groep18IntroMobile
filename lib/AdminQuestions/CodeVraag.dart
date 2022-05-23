@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intro_mobile_project/QuestionList.dart';
 
 import '../ExamList.dart';
 import '../Firebase.dart';
@@ -74,13 +75,13 @@ class CodeVraag extends StatelessWidget{
                     FirebaseFirestore.instance.collection("Questions").add(
                       {
                         "question": vraag.text,
-                        "index": 3,
+                        "index": 2,
                         "id": "code",
 
                         "solution": oplossing.text
                       }
                     );
-
+                    ListQuestions().AddQuestion("code", vraag.text);
                     vraag.clear();
                     oplossing.clear();
 

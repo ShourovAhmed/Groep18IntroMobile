@@ -1,8 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intro_mobile_project/AnswerList.dart';
+import 'package:intro_mobile_project/QuestionList.dart';
+import 'package:intro_mobile_project/StudentenQuestion.dart';
 
 class QuestionOpen extends StatelessWidget{
 
   final answercontroller = TextEditingController();
+  var Questionlist = ListQuestions().GetQuestions();
+  var id = "open";
 
   QuestionOpen({Key? key}) : super(key: key);
 
@@ -28,7 +34,7 @@ class QuestionOpen extends StatelessWidget{
                   border: Border.all(color: Colors.orange),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              child: Text('Open vraag', style: const TextStyle(fontSize: 40),),
+              child: Text('${Questionlist[id]}', style: const TextStyle(fontSize: 40),),
             ),
             TextField(
                 controller: answercontroller,
@@ -48,10 +54,16 @@ class QuestionOpen extends StatelessWidget{
               height: 10,
             ),
             ElevatedButton(onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => QuestionOpen()),
+              FirebaseFirestore.instance.collection("Answers").add(
+                  {
+                    "question": Questionlist[id],
+                    "answer": answercontroller.text,
+                    "index": 0,
+                    "id": "open"
+                  }
               );
+              ListAnswers().AddAnswer("open", answercontroller.text);
+              _showMyDialog(context);
             },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.orange,
@@ -63,4 +75,30 @@ class QuestionOpen extends StatelessWidget{
           ]),
     );
   }
+}
+Future<void> _showMyDialog(context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Bericht"),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: const <Widget>[
+              Text('Uw antwoord is opgeslagen! '),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

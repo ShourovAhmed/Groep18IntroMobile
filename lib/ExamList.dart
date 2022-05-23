@@ -1,45 +1,61 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:intro_mobile_project/AdminPage.dart';
+import 'package:intro_mobile_project/QuestionList.dart';
+import 'package:intro_mobile_project/Questions.dart';
+import 'package:intro_mobile_project/main.dart';
 import 'AdminQuestions/CodeVraag.dart';
 import 'AdminQuestions/OpenVraag.dart';
 import 'AdminQuestions/MultiVraag.dart';
 import 'AdminQuestions/QuestionInput.dart';
+import 'Timer.dart';
 import 'Firebase.dart';
 
 
 final fb = new firebase();
-final index = "";
-final quest = "";
-int counter = 0;
-final List<String> questions = <String>[];
-
 
 /*
 @override
 void dispose() {
   questions.dispose();
 }
-
  */
 
-
+//late List<String> questions = <String>[];
 
 class ExamList extends StatefulWidget {
-  late Input input;
+
 
   //ExamList(this.input, {Key? key}) : super(key: key);
 
   @override
   _State createState() => _State();
+  
 
 }
 
 class _State extends State<ExamList> {
 
   TextEditingController nameController = TextEditingController();
+  Future<List<Question>>? qList;
+  List<Question>? retrievedQList;
+  late Map<String, String> questions = ListQuestions().GetQuestions();
+
+ 
+
+  @override
+  void initState(){
+    _initRetrieval();
+  }
+
+  Future<void> _initRetrieval() async {
+    qList = fb.retrieveQuestions();
+    retrievedQList = await fb.retrieveQuestions();
+
+}
 
   void refresh(){
-    questions.insert(questions.length, input.toString());
+    //questions.insert(questions.length, input.toString());
   }
 /*
   void addOpen(){
@@ -71,29 +87,74 @@ class _State extends State<ExamList> {
           backgroundColor: Colors.orange,
           title: Text('Exam Questions'),
         ),
-        body: Row(
+        body:           Row(
             children: <Widget>[
               Expanded(
                   child: ListView.builder(
-                      padding: const EdgeInsets.all(8),
-                      itemCount: 0,
-                      itemBuilder: (BuildContext context, int index) {
+                      itemCount: ListQuestions().GetQuestions().length,
+                      itemBuilder: (BuildContext context, int index){
+                        if(context != null){
+                          return Container(
+                            height: 50,
+                            margin: EdgeInsets.all(2),
 
-                        return Container(
-                          height: 50,
-                          margin: EdgeInsets.all(2),
-
-                          child: Center(
-                              child: Text('${fb.GetQuestions()}',
+                            child: Center(
+                              child: Text(questions.values.toList()[index],
                                 style: TextStyle(fontSize: 18),
                               ),
 
-                          ),
+                            ),
 
-                        );
+                          );
+                        }
+                        else{
+                          return Text("");
+                        }
+                      })
+                  /*FutureBuilder(
+                     future: fb.getQuestions(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot){
+                       if (snapshot.hasData) {
+                       print('=== data ===: ${snapshot.data}');
+                       return ListView.builder(
+                          itemCount: snapshot.data.length as int,
+                           itemBuilder: (context, index){
+                           return Text(snapshot.data[index].data['question']);
+                           });
+                       }
+                       else{
+                         return const Center(child: CircularProgressIndicator(),);
+                       }
+                      },
+                      /*
+                      builder: (BuildContext context, AsyncSnapshot<List<Question>> snapshot) {
+                        if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                          return ListView.separated(
+                              itemCount: retrievedQList!.length,
+                              separatorBuilder: (content, index) =>
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                    height: 50,
+                                    margin: EdgeInsets.all(2),
 
-                      }
-                  )
+                                    child: Center(
+                                        child: Text(
+                                          '${[index]}',
+                                          style: TextStyle(fontSize: 18),
+                                        )
+                                    )
+                                );
+                              }
+                          );
+                        }
+                        else{
+                          return const Center(child: CircularProgressIndicator(),);
+                        }
+                      }*/
+                      )*/
               ),
 
               Expanded(
@@ -171,21 +232,43 @@ class _State extends State<ExamList> {
 
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        //primary: Colors.orange,
+                        primary: Colors.red,
                         padding: const EdgeInsets.symmetric(horizontal: 72, vertical: 20),
                         textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
-                      child: Text('Refresh'),
+                      child: Text('Timer'),
                       onPressed: () {
-                        refresh();
-
-
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Timer()),
+                        );
                       },
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
 
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.orange,
+                        padding: const EdgeInsets.symmetric(horizontal: 72, vertical: 20),
+                        textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      child: Text('Home'),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FirstRoute()),
+                        );
+                      },
+                    ),
               ],
               ),
               )]
+
+
+
+
         )
     );
   }

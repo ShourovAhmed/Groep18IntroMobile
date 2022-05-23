@@ -1,15 +1,34 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class QuestionOption extends StatelessWidget{
+import '../AnswerList.dart';
+import '../QuestionList.dart';
 
-  final answercontroller = TextEditingController();
+class QuestionOption extends StatefulWidget {
+  const QuestionOption({Key? key}) : super(key: key);
 
-  QuestionOption({Key? key}) : super(key: key);
+  @override
+  _State createState() {
+    return _State();
+  }
 
+}
+
+class _State extends State<QuestionOption>{
+  //final answercontroller = TextEditingController();
+  var Questionlist = ListQuestions().GetQuestions();
+  var id = "multi";
+  var Optionslist = ListQuestions().GetOptions();
+  String val = "z";
+  String radioItemHolder = "";
+
+/*
   @override
   void dispose() {
     answercontroller.dispose();
   }
+
+ */
 
   @override
   Widget build(BuildContext context) {
@@ -28,27 +47,62 @@ class QuestionOption extends StatelessWidget{
                 border: Border.all(color: Colors.orange),
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              child: Text('Open vraag'),
+              child: Text('${Questionlist[id]}', style: const TextStyle(fontSize: 40),),
             ),
-            TextField(
-                controller: answercontroller,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Geef hier uw antwoord',
+            Column(
+              children: [
+                ListTile(
+                  title: Text(Optionslist[0]),
+                  leading: Radio<String>(
+                    value: Optionslist[0],
+                    groupValue: val,
+                    onChanged: (value) {
+                      setState(() {
+                        radioItemHolder = Optionslist[0];
+                        val = value!;
+                      });
+                    },
+                  ),
                 ),
-                minLines: 1,
-                maxLines: 5,
-                style: const TextStyle(
-                  fontSize: 25.0,
-                  height: 1.0,
-                  color: Colors.black,
+                ListTile(
+                  title: Text(Optionslist[1]),
+                  leading: Radio<String>(
+                    value: Optionslist[1],
+                    groupValue: val,
+                    onChanged: (value) {
+                      setState(() {
+                        radioItemHolder = Optionslist[1];
+                        val = value!;
+                      });
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: Text(Optionslist[2]),
+                  leading: Radio<String>(
+                    value: Optionslist[2],
+                    groupValue: val,
+                    onChanged: (value) {
+                      setState(() {
+                        radioItemHolder = Optionslist[2];
+                        val = value!;
+                      });
+                    },
+                  ),
                 )
+              ],
             ),
             ElevatedButton(onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => QuestionOption()),
+              FirebaseFirestore.instance.collection("Answers").add(
+                  {
+                    "question": Questionlist[id],
+                    "answer": radioItemHolder,
+                    "index": 1,
+                    "id": "multi"
+                  }
               );
+              ListAnswers().AddAnswer("multi", radioItemHolder);
+              _showMyDialog(context);
             },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.orange,
@@ -60,4 +114,31 @@ class QuestionOption extends StatelessWidget{
           ]),
     );
   }
+}
+
+Future<void> _showMyDialog(context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Bericht"),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: const <Widget>[
+              Text('Uw antwoord is opgeslagen! '),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'Questions.dart';
+
 
 
 class firebase{
@@ -49,16 +51,9 @@ class firebase{
       }
     });
   }
+
   /*
-  Future<void> DeleteStudents(String number) async {
-    await FirebaseFirestore.instance.collection("Studenten").where(
-        'snumber', isEqualTo: number).get().then((value) =>
-        value.docs.first.reference.delete());
-  }
-
-   */
-
-  Future<Map<String, String>> GetQuestions() async {
+  Future<Iterable<String>> GetQuestions() async {
 
     var questions = <String, String>{};
 
@@ -67,6 +62,38 @@ class firebase{
         questions[element.get('index')] = element.get('question');
       })
     });
-    return questions;
+    return questions.values;
   }
+
+
+   */
+
+  addQuestion(Question questionData) async {
+    await FirebaseFirestore.instance.collection("Questions").add(questionData.toMap());
+  }
+
+  Future<List<Question>> retrieveQuestions() async {
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+    await FirebaseFirestore.instance.collection("Questions").get();
+    return snapshot.docs
+        .map((docSnapshot) => Question.fromDocumentSnapshot(docSnapshot))
+        .toList();
+  }
+
+  Future getQuestions() async {
+    QuerySnapshot<Map<String, dynamic>> qn = await FirebaseFirestore.instance.collection("Questions").get();
+    return qn;
+  }
+
+  Future<void> AddAnswers(String index, String answer) async{
+    await FirebaseFirestore.instance.collection("Answers").where(
+        'index', isEqualTo: index).get().then((value) async =>{
+      if (value.size == 0) {
+        await FirebaseFirestore.instance.collection("Answers").add(
+            {"answer": answer, 'index': index}
+        )
+      }
+    });
+  }
+
 }

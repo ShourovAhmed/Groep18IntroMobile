@@ -8,6 +8,7 @@ import 'Questions/OptionQuestion.dart';
 import 'Questions/CodeQuestion.dart';
 import 'ExamEnd.dart';
 import 'studentlist.dart';
+import 'Timer.dart';
 
 class QuestionWidget extends StatefulWidget {
   const QuestionWidget(this.number, {Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class QuestionWidget extends StatefulWidget {
   @override
   _QuestionsWidget createState() => _QuestionsWidget(number);
 }
-
+late int count = Timer.seconds;
 class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver{
   _QuestionsWidget(this.number);
 
@@ -25,7 +26,8 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
   AppLifecycleState? notification;
   CurrentRemainingTime? Time;
 
-  int EndTime = DateTime.now().millisecondsSinceEpoch + 1000 * 7200;
+
+  int EndTime = DateTime.now().millisecondsSinceEpoch + 1000 * count;
 
 
   @override
@@ -50,6 +52,7 @@ class _QuestionsWidget extends State<QuestionWidget> with WidgetsBindingObserver
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
+    count = Timer.seconds;
   }
 
   @override

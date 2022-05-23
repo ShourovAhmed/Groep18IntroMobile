@@ -1,37 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intro_mobile_project/QuestionList.dart';
+import 'package:flutter/services.dart';
 
-import '../ExamList.dart';
-import '../Firebase.dart';
-import '../Questions.dart';
-import 'QuestionInput.dart';
+import 'ExamList.dart';
 
-
-
-final fb = new firebase();
 final myController = TextEditingController();
-//late final Input input;
 
+class Timer extends StatelessWidget{
 
-class OpenVraag extends StatelessWidget{
-  late final Input input;
+  static late int seconds ;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.orange,
-          title: const Text('Admin - Open Vraag'),
-        ),
-
-
-
+    appBar: AppBar(
+    backgroundColor: Colors.orange,
+    title: const Text('Admin - Timer'),
+    ),
         body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Open vraag:', style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
+                Text('Timer:', style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
                 SizedBox(
                   height: 20,
                 ),
@@ -42,8 +32,12 @@ class OpenVraag extends StatelessWidget{
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           //labelText: 'Open vraag',
-                          hintText: 'Geef uw vraag in',
+                          hintText: 'Geef aantal seconden',
                         ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ], // Only numbers can be entered
                         style: TextStyle(
                             fontSize: 40.0,
                             height: 2.0,
@@ -58,16 +52,9 @@ class OpenVraag extends StatelessWidget{
                       primary: Colors.orange
                   ),
                   child: Text("Voeg toe", style: TextStyle(fontSize: (40)),),
-                  onPressed: () async {
-
+                  onPressed: () {
+                    seconds = int.parse(myController.text);
                     /*
-                    Question question = Question(
-                      question: myController.text,
-                      id: 0,
-                    );
-
-                     */
-
                     FirebaseFirestore.instance.collection("Questions").add(
                       {
 
@@ -77,9 +64,9 @@ class OpenVraag extends StatelessWidget{
                       }
 
                     );
-                    ListQuestions().AddQuestion("open", myController.text);
 
-                    //await fb.addQuestion(question);
+                     */
+
                     myController.clear();
 
                     Navigator.push(
@@ -93,7 +80,9 @@ class OpenVraag extends StatelessWidget{
               ],
             )
         )
-    );
+
+      );
+
   }
 
 }

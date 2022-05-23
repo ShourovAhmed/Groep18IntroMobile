@@ -46,7 +46,7 @@ class _LocationStudent extends State<LocationStudent> {
             children: [
               Row(
                 children: [
-                  Text(Url.address.postcode + " " + Url.address.city_district + " " + Url.address.road + " " + Url.address.house_number, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+                  Text(Url.address.postcode + " " + Url.address.city + " " + Url.address.road + " " + Url.address.house_number, style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
                 ],
               ),
             ]

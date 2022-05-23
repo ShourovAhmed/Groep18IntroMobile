@@ -51,10 +51,11 @@ class Album {
   }
 }
 class Address {
-  final String historic;
+  final String amenity;
   final String house_number;
   final String road;
-  final String city_district;
+  final String neighbourhood;
+  final String city;
   final String municipality;
   final String county;
   final String state;
@@ -66,10 +67,11 @@ class Address {
   final String country_code;
 
   const Address({
-    required this.historic,
+    required this.amenity,
     required this.house_number,
     required this.road,
-    required this.city_district,
+    required this.neighbourhood,
+    required this.city,
     required this.municipality,
     required this.county,
     required this.state,
@@ -82,10 +84,11 @@ class Address {
 });
   factory Address.fromJson(Map<String, dynamic> json) {
     return Address(
-      historic: json['historic'],
+      amenity: json['amenity'],
       house_number: json['house_number'],
       road: json['road'],
-      city_district: json['city_district'],
+      neighbourhood: json['neighbourhood'],
+      city: json['city'],
       municipality: json['municipality'],
       county: json['county'],
       state: json['state'],

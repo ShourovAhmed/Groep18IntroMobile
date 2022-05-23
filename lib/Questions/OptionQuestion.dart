@@ -94,7 +94,7 @@ class _State extends State<QuestionOption>{
             ElevatedButton(onPressed: () {
               FirebaseFirestore.instance.collection("Answers").add(
                   {
-
+                    "question": Questionlist[id],
                     "answer": radioItemHolder,
                     "index": 1,
                     "id": "multi"

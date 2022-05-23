@@ -55,7 +55,7 @@ class QuestionOpen extends StatelessWidget{
             ElevatedButton(onPressed: () {
               FirebaseFirestore.instance.collection("Answers").add(
                   {
-
+                    "question": Questionlist[id],
                     "answer": answercontroller.text,
                     "index": 0,
                     "id": "open"

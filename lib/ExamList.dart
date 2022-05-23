@@ -96,15 +96,15 @@ class _State extends State<ExamList> {
           backgroundColor: Colors.orange,
           title: Text('Exam Questions'),
         ),
-        body: ListView(
+        body: /*ListView(
           children: [
             for(var question in questions)
               Container(
                 height: 40,
                 child: Text(question.question),
               ),
-          ],
-          /*
+          ],*/
+          Row(
             children: <Widget>[
               Expanded(
                   child: FutureBuilder(
@@ -238,9 +238,6 @@ class _State extends State<ExamList> {
                           context,
                           MaterialPageRoute(builder: (context) => Timer()),
                         );
-
-
-                        refresh();
                       },
                     ),
               ],
@@ -248,7 +245,7 @@ class _State extends State<ExamList> {
               )]
 
 
-           */
+
 
         )
     );

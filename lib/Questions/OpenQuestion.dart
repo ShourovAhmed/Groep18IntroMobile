@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_mobile_project/QuestionList.dart';
 import 'package:intro_mobile_project/StudentenQuestion.dart';
@@ -52,6 +53,14 @@ class QuestionOpen extends StatelessWidget{
               height: 10,
             ),
             ElevatedButton(onPressed: () {
+              FirebaseFirestore.instance.collection("Answers").add(
+                  {
+
+                    "answer": answercontroller.text,
+                    "index": 0,
+                    "id": "open"
+                  }
+              );
               _showMyDialog(context);
             },
                 style: ElevatedButton.styleFrom(

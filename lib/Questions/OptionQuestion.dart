@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../QuestionList.dart';
@@ -13,11 +14,12 @@ class QuestionOption extends StatefulWidget {
 }
 
 class _State extends State<QuestionOption>{
-  final answercontroller = TextEditingController();
+  //final answercontroller = TextEditingController();
   var Questionlist = ListQuestions().GetQuestions();
   var id = "multi";
   var Optionslist = ListQuestions().GetOptions();
   String val = "z";
+  String radioItemHolder = "";
 
 /*
   @override
@@ -55,6 +57,7 @@ class _State extends State<QuestionOption>{
                     groupValue: val,
                     onChanged: (value) {
                       setState(() {
+                        radioItemHolder = Optionslist[0];
                         val = value!;
                       });
                     },
@@ -67,6 +70,7 @@ class _State extends State<QuestionOption>{
                     groupValue: val,
                     onChanged: (value) {
                       setState(() {
+                        radioItemHolder = Optionslist[1];
                         val = value!;
                       });
                     },
@@ -79,6 +83,7 @@ class _State extends State<QuestionOption>{
                     groupValue: val,
                     onChanged: (value) {
                       setState(() {
+                        radioItemHolder = Optionslist[2];
                         val = value!;
                       });
                     },
@@ -87,6 +92,14 @@ class _State extends State<QuestionOption>{
               ],
             ),
             ElevatedButton(onPressed: () {
+              FirebaseFirestore.instance.collection("Answers").add(
+                  {
+
+                    "answer": radioItemHolder,
+                    "index": 1,
+                    "id": "multi"
+                  }
+              );
               _showMyDialog(context);
             },
                 style: ElevatedButton.styleFrom(

@@ -75,7 +75,7 @@ class CodeVraag extends StatelessWidget{
                     FirebaseFirestore.instance.collection("Questions").add(
                       {
                         "question": vraag.text,
-                        "index": 3,
+                        "index": 2,
                         "id": "code",
 
                         "solution": oplossing.text

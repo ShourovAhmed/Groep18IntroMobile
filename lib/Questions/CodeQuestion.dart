@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../QuestionList.dart';
@@ -52,6 +53,14 @@ class QuestionCode extends StatelessWidget{
               height: 10,
             ),
             ElevatedButton(onPressed: () {
+              FirebaseFirestore.instance.collection("Answers").add(
+                  {
+
+                    "answer": answercontroller.text,
+                    "index": 2,
+                    "id": "code"
+                  }
+              );
             _showMyDialog(context);
             },
                 style: ElevatedButton.styleFrom(

@@ -85,4 +85,15 @@ class firebase{
     return qn;
   }
 
+  Future<void> AddAnswers(String index, String answer) async{
+    await FirebaseFirestore.instance.collection("Answers").where(
+        'index', isEqualTo: index).get().then((value) async =>{
+      if (value.size == 0) {
+        await FirebaseFirestore.instance.collection("Answers").add(
+            {"answer": answer, 'index': index}
+        )
+      }
+    });
+  }
+
 }

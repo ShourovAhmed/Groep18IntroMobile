@@ -32,7 +32,7 @@ class QuestionCode extends StatelessWidget{
                 border: Border.all(color: Colors.orange),
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              child: Text('${Questionlist[id]}', style: const TextStyle(fontSize: 40),),
+              child: Text('Verbeter: ${Questionlist[id]}', style: const TextStyle(fontSize: 40),),
             ),
             TextField(
                 controller: answercontroller,
@@ -52,10 +52,7 @@ class QuestionCode extends StatelessWidget{
               height: 10,
             ),
             ElevatedButton(onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => QuestionCode()),
-              );
+            _showMyDialog(context);
             },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.orange,
@@ -67,4 +64,31 @@ class QuestionCode extends StatelessWidget{
           ]),
     );
   }
+}
+
+Future<void> _showMyDialog(context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Bericht"),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: const <Widget>[
+              Text('Uw antwoord is opgeslagen! '),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

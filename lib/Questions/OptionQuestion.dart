@@ -87,10 +87,7 @@ class _State extends State<QuestionOption>{
               ],
             ),
             ElevatedButton(onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => QuestionOption()),
-              );
+              _showMyDialog(context);
             },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.orange,
@@ -102,4 +99,31 @@ class _State extends State<QuestionOption>{
           ]),
     );
   }
+}
+
+Future<void> _showMyDialog(context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Bericht"),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: const <Widget>[
+              Text('Uw antwoord is opgeslagen! '),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

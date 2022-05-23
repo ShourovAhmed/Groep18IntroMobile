@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intro_mobile_project/QuestionList.dart';
+import 'package:intro_mobile_project/StudentenQuestion.dart';
 
 class QuestionOpen extends StatelessWidget{
 
@@ -51,10 +52,7 @@ class QuestionOpen extends StatelessWidget{
               height: 10,
             ),
             ElevatedButton(onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => QuestionOpen()),
-              );
+              _showMyDialog(context);
             },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.orange,
@@ -66,4 +64,30 @@ class QuestionOpen extends StatelessWidget{
           ]),
     );
   }
+}
+Future<void> _showMyDialog(context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Bericht"),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: const <Widget>[
+              Text('Uw antwoord is opgeslagen! '),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

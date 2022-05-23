@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../QuestionList.dart';
+
 class QuestionOption extends StatelessWidget{
 
   final answercontroller = TextEditingController();
+  var Questionlist = ListQuestions().GetQuestions();
+  var id = "multi";
 
   QuestionOption({Key? key}) : super(key: key);
 
@@ -28,7 +32,7 @@ class QuestionOption extends StatelessWidget{
                 border: Border.all(color: Colors.orange),
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              child: Text('Open vraag'),
+              child: Text('${Questionlist[id]}', style: const TextStyle(fontSize: 40),),
             ),
             TextField(
                 controller: answercontroller,
